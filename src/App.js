@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './App.css';
 import ReactPrismEditor from "react-prism-editor";
+import SplitterLayout from 'react-splitter-layout';
+import 'react-splitter-layout/lib/index.css';
 
 function App() {
   const [ code, setCode ] = useState('');
@@ -20,19 +22,21 @@ function App() {
 
   return (
     <div className="app">
-      <div className="json-editor">
-        <ReactPrismEditor
-          language="javascript"
-          theme="default"
-          lineNumber={true}
-          code={code}
-          changeCode={newCode => updateCode(newCode)}
-          height='100vw'
-        />
-      </div>
-      <div className="rendered-view">
-        {verses.map((verse, i) => <Verse verse={verse} key={i} />)}
-      </div>
+      <SplitterLayout primaryIndex={0} percentage={true} secondaryInitialSize={60}>
+        <div className="json-editor">
+          <ReactPrismEditor
+            language="javascript"
+            theme="default"
+            lineNumber={true}
+            code={code}
+            changeCode={newCode => updateCode(newCode)}
+            height='100vw'
+          />
+        </div>
+        <div className="rendered-view">
+          {verses.map((verse, i) => <Verse verse={verse} key={i} />)}
+        </div>
+      </SplitterLayout>
     </div>
   );
 }

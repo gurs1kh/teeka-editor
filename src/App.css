@@ -7,10 +7,10 @@
 }
 
 .json-editor {
-  width: 40vw;
-  max-height: 100vh;
+  height: 100vh;
   background-color: #f5f2f0;
   cursor: text;
+  overflow: hidden;
 }
 
 .json-editor pre {
@@ -18,12 +18,10 @@
 }
 
 .rendered-view {
-  width: 60vw;
-  max-height: 100vh;
+  height: 100vh;
   margin-top: 30px;
   margin-left: 50px;
   font-size: 32px;
-  overflow: scroll;
 }
 
 .rendered-view p {
