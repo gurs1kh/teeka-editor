@@ -41,15 +41,18 @@
 
 .sirlekh {
   font-weight: 800;
+  margin-top: 2em;
 }
 
 .pad-arth {
   font-size: 0.6em;
   line-height: 0.5em;
+  padding-left: 0.5em;
 }
 
 .arth {
   font-size: 0.7em;
+  padding-left: 0.5em;
 }
 
 .pad-arth .english,
