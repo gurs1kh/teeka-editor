@@ -29,6 +29,10 @@
   margin: 0.25em 0;
 }
 
+.page {
+  margin-bottom: 10em;
+}
+
 .gurmukhi {
   font-weight: 500;
 }

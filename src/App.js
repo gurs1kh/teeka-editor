@@ -9,6 +9,10 @@ function App() {
   const [ verses, setVerses ] = useState([]);
 
   function updateCode(code) {
+    // temp solution: ensure at least 10 new lines at end of the file
+    let endingNewLineCount = code.length - (code.match(/\n+$/)?.index || code.length);
+    code += ''.padEnd(10 - endingNewLineCount, '\n')
+
     setCode(code);
     try {
       if (code[0] != '[') code = `[${code}]`;
@@ -34,7 +38,9 @@ function App() {
           />
         </div>
         <div className="rendered-view">
-          {verses.map((verse, i) => <Verse verse={verse} key={i} />)}
+          <div className="page">
+            {verses.map((verse, i) => <Verse verse={verse} key={i} />)}
+          </div>
         </div>
       </SplitterLayout>
     </div>
