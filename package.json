@@ -11,6 +11,7 @@
     "react-prism-editor": "^1.1.1",
     "react-scripts": "4.0.0",
     "react-splitter-layout": "^4.0.0",
+    "react-use": "^15.3.4",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

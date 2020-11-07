@@ -1,17 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocalStorage } from 'react-use';
 import './App.css';
 import ReactPrismEditor from "react-prism-editor";
 import SplitterLayout from 'react-splitter-layout';
 import 'react-splitter-layout/lib/index.css';
 
 function App() {
-  const [ code, setCode ] = useState('');
+  const [ code, setCode ] = useLocalStorage('code', '');
   const [ verses, setVerses ] = useState([]);
+
+  useEffect(() => updateCode(code), []);
 
   function updateCode(code) {
     // temp solution: ensure at least 10 new lines at end of the file
     let endingNewLineCount = code.length - (code.match(/\n+$/)?.index || code.length);
-    code += ''.padEnd(10 - endingNewLineCount, '\n')
+    code += ''.padEnd(10 - endingNewLineCount, '\n');
 
     setCode(code);
     try {
