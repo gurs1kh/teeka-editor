@@ -61,8 +61,8 @@ function Verse({ verse }) {
     return (
       <span key={key}>
         {key}
-        <span className='punjabi'>{arth.punjabi}</span>{' '}
-        <span className='english'>{arth.english}</span>{' '}
+        {arth.punjabi && <span className='punjabi'>{arth.punjabi}{' '}</span>}
+        <span className='english'>{arth.english}{' '}</span>
       </span>
     );
   });
