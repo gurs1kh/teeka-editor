@@ -14,7 +14,7 @@ function superscriptize(text) {
 function parseText(text) {
   const verses = text.split(/\n(?=#+)/);
 
-  return verses.map(verseText => {
+  return verses.map((verseText, id) => {
     const title = !!verseText.match(/###/);
     const sirlekh = !!verseText.match(/##/);
     const gurmukhi = superscriptize(verseText.match(/# (.+)/)[1]);
@@ -30,6 +30,7 @@ function parseText(text) {
     const [_,  punjabi, english ] = [...arthMatches]?.[0] || ['', '', ''];
 
     return {
+      id,
       gurmukhi,
       title,
       sirlekh,
@@ -74,7 +75,7 @@ function App() {
         </div>
         <div className="rendered-view">
           <div className="page">
-            {verses.map((verse, i) => <Verse verse={verse} key={i} />)}
+            {verses.map(verse => <Verse verse={verse} key={verse.id} />)}
           </div>
         </div>
       </SplitterLayout>
@@ -102,7 +103,7 @@ function Verse({ verse }) {
   });
 
   return (
-    <div className={className}>
+    <div className={className} id={`verse-${verse.id}`}>
       <p className='gurmukhi'>{verse.gurmukhi}</p>
       <div className='pad-arth'>
          <p>{padArth}</p>
