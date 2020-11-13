@@ -86,7 +86,7 @@ function Verse({ verse }) {
   if (!verse) return (<p></p>);
 
   const className = [
-    'gurmukhi',
+    'verse',
     verse.title && 'title',
     verse.sirlekh && 'sirlekh',
   ].filter(d => d).join(' ');
@@ -102,8 +102,8 @@ function Verse({ verse }) {
   });
 
   return (
-    <div className='verse'>
-      <p className={className}>{verse.gurmukhi}</p>
+    <div className={className}>
+      <p className='gurmukhi'>{verse.gurmukhi}</p>
       <div className='pad-arth'>
          <p>{padArth}</p>
       </div>

@@ -38,14 +38,18 @@
 }
 
 .title {
-  font-weight: 700;
-  font-size: 1.25em;
   text-align: center;
 }
 
-.sirlekh {
+.title .gurmukhi {
+  font-weight: 700;
+  font-size: 1.25em;
+}
+
+.sirlekh .gurmukhi {
   font-weight: 800;
-  margin-top: 2em;
+  font-size: 1.05em;
+  margin-top: 0.75em;
 }
 
 .pad-arth {
