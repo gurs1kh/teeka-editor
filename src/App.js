@@ -63,7 +63,7 @@ function App() {
   return (
     <div className="app">
       <SplitterLayout primaryIndex={0} percentage={true} secondaryInitialSize={60}>
-        <div className="json-editor">
+        <div id="json-editor">
           <ReactPrismEditor
             language="markup"
             theme="default"
@@ -73,7 +73,7 @@ function App() {
             height='100vw'
           />
         </div>
-        <div className="rendered-view">
+        <div id="rendered-view">
           <div className="page">
             {verses.map(verse => <Verse verse={verse} key={verse.id} />)}
           </div>

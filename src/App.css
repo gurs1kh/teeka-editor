@@ -6,30 +6,30 @@
   max-height: 100vh;
 }
 
-.json-editor {
+#json-editor {
   height: 100vh;
   background-color: #f5f2f0;
   cursor: text;
   overflow: hidden;
 }
 
-.json-editor pre {
+#json-editor pre {
   height: 100vh;
 }
 
-.rendered-view {
+#rendered-view {
   height: 100vh;
   margin-top: 30px;
   margin-left: 50px;
   font-size: 32px;
 }
 
-.rendered-view p {
+#rendered-view p {
   line-height: 1.5em;
   margin: 0.25em 0;
 }
 
-.page {
+#rendered-view .page {
   margin-bottom: 10em;
 }
 
