@@ -5,6 +5,40 @@ import ReactPrismEditor from "react-prism-editor";
 import SplitterLayout from 'react-splitter-layout';
 import 'react-splitter-layout/lib/index.css';
 
+function superscriptize(text) {
+  return text.replace(/\^(\d+)/g, (match, n) => {
+    return n.toString().split('').map(d => '⁰¹²³⁴⁵⁶⁷⁸⁹'[+d]).join('');
+  });
+}
+
+function parseText(text) {
+  const verses = text.split(/\n(?=#+)/);
+
+  return verses.map(verseText => {
+    const title = !!verseText.match(/###/);
+    const sirlekh = !!verseText.match(/##/);
+    const gurmukhi = superscriptize(verseText.match(/# (.+)/)[1]);
+    const padArth = {};
+    const padArthMatches = verseText.matchAll(/(\d+) (.+)\n\s+(.+)/g);
+    [...padArthMatches].map(match => {
+      const num = match[1];
+      const punjabi = match[2];
+      const english = match[3];
+      padArth[superscriptize(`^${num}`)] = { punjabi, english };
+    });
+    const arthMatches = verseText.matchAll(/- (.+)\n- (.*)\n/g);
+    const [_,  punjabi, english ] = [...arthMatches]?.[0] || ['', '', ''];
+
+    return {
+      gurmukhi,
+      title,
+      sirlekh,
+      padArth,
+      arth: { punjabi, english },
+    };
+  });
+}
+
 function App() {
   const [ code, setCode ] = useLocalStorage('code', '');
   const [ verses, setVerses ] = useState([]);
@@ -18,13 +52,11 @@ function App() {
 
     setCode(code);
     try {
-      if (code[0] != '[') code = `[${code}]`;
-      code = code.replace(/\^(\d)/g, (match, d) => '⁰¹²³⁴⁵⁶⁷⁸⁹'[+d]);
-      let verses = eval(code);
-      setVerses(verses);
+      setVerses(parseText(code));
     } catch (e) {
-      console.error(`${e}\n${code}`)
-    };
+      setVerses([{ arth: { english: e.stack }}]);
+      console.error(e);
+    }
   }
 
   return (
@@ -32,7 +64,7 @@ function App() {
       <SplitterLayout primaryIndex={0} percentage={true} secondaryInitialSize={60}>
         <div className="json-editor">
           <ReactPrismEditor
-            language="javascript"
+            language="markup"
             theme="default"
             lineNumber={true}
             code={code}
@@ -51,6 +83,8 @@ function App() {
 }
 
 function Verse({ verse }) {
+  if (!verse) return (<p></p>);
+
   const className = [
     'gurmukhi',
     verse.title && 'title',
