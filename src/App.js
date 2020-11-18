@@ -19,14 +19,14 @@ function parseText(text) {
     const sirlekh = !!verseText.match(/##/);
     const gurmukhi = superscriptize(verseText.match(/# (.+)/)[1]);
     const padArth = {};
-    const padArthMatches = verseText.matchAll(/(\d+) (.+)\n\s+(.+)/g);
+    const padArthMatches = verseText.matchAll(/(\d+) (.+)\n(- (.+))?/g);
     [...padArthMatches].map(match => {
       const num = match[1];
       const punjabi = match[2];
-      const english = match[3];
+      const english = match[4];
       padArth[superscriptize(`^${num}`)] = { punjabi, english };
     });
-    const arthMatches = verseText.matchAll(/- (.+)\n- (.*)\n/g);
+    const arthMatches = verseText.matchAll(/[-#].+\n(\(?[ਅ-ੴ].+)\n((\(?\w.*)\n)?/g);
     const [_,  punjabi, english ] = [...arthMatches]?.[0] || ['', '', ''];
 
     return {
