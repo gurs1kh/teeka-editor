@@ -19,7 +19,7 @@ function parseText(text) {
     const sirlekh = !!verseText.match(/##/);
     const gurmukhi = superscriptize(verseText.match(/# (.+)/)[1]);
     const padArth = {};
-    const padArthMatches = verseText.matchAll(/(\d+) (.+)\n(- (.+))?/g);
+    const padArthMatches = verseText.matchAll(/\n(\d+) (.+)\n(- (.+))?/g);
     [...padArthMatches].map(match => {
       const num = match[1];
       const punjabi = match[2];
@@ -90,11 +90,21 @@ function Verse({ verse }) {
     'verse',
     verse.title && 'title',
     verse.sirlekh && 'sirlekh',
+    verse.gurmukhi?.includes('¹') && JSON.stringify(verse.padArth) == '{}' && 'missing-data'
+  ].filter(d => d).join(' ');
+
+  const arthClassName = [
+    'arth',
+    (!verse.arth?.punjabi != !verse.arth?.english) && 'missing-data',
   ].filter(d => d).join(' ');
 
   let padArth = Object.entries(verse.padArth || {}).map(([key, arth]) => {
+    let className = [
+      (!arth.punjabi != !arth.english) && 'missing-data',
+    ].filter(d => d).join(' ');
+
     return (
-      <span key={key}>
+      <span key={key} className={className}>
         {key}
         {arth.punjabi && <span className='punjabi'>{arth.punjabi}{' '}</span>}
         <span className='english'>{arth.english}{' '}</span>
@@ -108,7 +118,7 @@ function Verse({ verse }) {
       <div className='pad-arth'>
          <p>{padArth}</p>
       </div>
-      <div className='arth'>
+      <div className={arthClassName}>
         <p className='punjabi'>{verse.arth?.punjabi}</p>
         <p className='english'>{verse.arth?.english}</p>
       </div>

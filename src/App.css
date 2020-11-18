@@ -67,3 +67,7 @@
 .arth .english {
   font-size: 0.85em;
 }
+
+.missing-data {
+  background-color: #e1d7d1;
+}
